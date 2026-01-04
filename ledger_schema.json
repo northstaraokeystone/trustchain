@@ -1,0 +1,95 @@
+{
+  "version": "1.0",
+  "hash_strategy": {
+    "algorithm": ["SHA256", "BLAKE3"],
+    "format": "sha256:blake3"
+  },
+  "receipt_types": {
+    "trustchain_trust_score": {
+      "description": "Trust score computation receipt",
+      "required_fields": {
+        "receipt_type": "string",
+        "ts": "ISO8601",
+        "tenant_id": "string",
+        "source_receipt_hash": "string:dual_hash",
+        "trust_score": "integer:0-100",
+        "trust_level": "enum:GREEN|YELLOW|RED",
+        "source_count": "integer",
+        "approver": "string|null",
+        "confidence": "float:0.0-1.0|null",
+        "monte_carlo_passed": "boolean",
+        "human_verified": "boolean",
+        "summary_line_1": "string",
+        "summary_line_2": "string",
+        "payload_hash": "string:dual_hash"
+      }
+    },
+    "watchdog_health": {
+      "description": "Watchdog health check receipt",
+      "required_fields": {
+        "receipt_type": "string",
+        "ts": "ISO8601",
+        "tenant_id": "string",
+        "status": "enum:healthy|unhealthy",
+        "checks_passed": "integer",
+        "checks_failed": "integer",
+        "check_details": "array",
+        "payload_hash": "string:dual_hash"
+      }
+    },
+    "error": {
+      "description": "Error receipt for malformed data",
+      "required_fields": {
+        "receipt_type": "string",
+        "ts": "ISO8601",
+        "tenant_id": "string",
+        "error_type": "string",
+        "error_message": "string",
+        "context": "object",
+        "payload_hash": "string:dual_hash"
+      }
+    },
+    "anomaly": {
+      "description": "Anomaly detection receipt",
+      "required_fields": {
+        "receipt_type": "string",
+        "ts": "ISO8601",
+        "tenant_id": "string",
+        "metric": "string",
+        "baseline": "float",
+        "actual": "float",
+        "delta": "float",
+        "classification": "enum:drift|degradation|violation|deviation",
+        "action": "enum:alert|escalate|halt",
+        "payload_hash": "string:dual_hash"
+      }
+    },
+    "bias": {
+      "description": "Bias detection receipt",
+      "required_fields": {
+        "receipt_type": "string",
+        "ts": "ISO8601",
+        "tenant_id": "string",
+        "groups": "array",
+        "disparity": "float:0-1",
+        "threshold": "float",
+        "mitigation_action": "enum:none|alert|halt",
+        "payload_hash": "string:dual_hash"
+      }
+    },
+    "simulation_run": {
+      "description": "Monte Carlo simulation run receipt",
+      "required_fields": {
+        "receipt_type": "string",
+        "ts": "ISO8601",
+        "tenant_id": "string",
+        "scenario_name": "string",
+        "cycles_completed": "integer",
+        "success": "boolean",
+        "violations": "array",
+        "metrics": "object",
+        "payload_hash": "string:dual_hash"
+      }
+    }
+  }
+}
